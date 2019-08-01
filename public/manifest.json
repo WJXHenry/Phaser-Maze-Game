@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Phaser Maze Game",
+  "name": "Phaser Maze Game in React",
   "icons": [
     {
       "src": "favicon.ico",

@@ -1,0 +1,26 @@
+language: node_js
+node_js:
+  - 11.7.0
+branches:
+  only:
+    - master
+    - edge
+cache:
+  directories:
+    - node_modules
+before_install:
+  - npm update
+install:
+  - npm install
+script:
+  - npm run lint
+  - npm test
+  - npm run build
+deploy:
+  provider: pages
+  skip_cleanup: true
+  github_token: $GITHUB_TOKEN
+  keep_history: true
+  local_dir: ./build
+  on:
+    branch: master
