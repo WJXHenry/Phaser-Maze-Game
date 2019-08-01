@@ -31,7 +31,7 @@ export default class MainMenu extends Phaser.Scene {
     this.gameDimensions = getDimensions(this.game);
 
     this.choice = 0;
-    this.scenes = ['StartGame', 'Settings', 'Movement'];
+    this.scenes = ['Maze', 'Settings', 'Movement'];
 
     let title = this.add.text(
       this.gameDimensions.screenCenter,
