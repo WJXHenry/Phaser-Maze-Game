@@ -1,18 +1,18 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "1973718abb7548c37dea1c8c32fd9022",
+    "revision": "f75c94567f8098acdea2d0e7fd53221c",
     "url": "/Phaser-Maze-Game/index.html"
   },
   {
-    "revision": "9e4df6c8cca92c211c74",
-    "url": "/Phaser-Maze-Game/static/css/main.9093acdf.chunk.css"
+    "revision": "8a97650b3696150b8e2b",
+    "url": "/Phaser-Maze-Game/static/css/main.8b3692fa.chunk.css"
   },
   {
     "revision": "2ce9773b700b180f8413",
     "url": "/Phaser-Maze-Game/static/js/2.c3ced459.chunk.js"
   },
   {
-    "revision": "9e4df6c8cca92c211c74",
+    "revision": "8a97650b3696150b8e2b",
     "url": "/Phaser-Maze-Game/static/js/main.6e80186e.chunk.js"
   },
   {
