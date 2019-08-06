@@ -10,7 +10,7 @@
  */
 
 export default class Graph {
-  constructor(vertices = new Set(), edges = new Array()) {
+  constructor(vertices = new Set(), edges = []) {
     this.alist = {};
 
     vertices.forEach(v => {
