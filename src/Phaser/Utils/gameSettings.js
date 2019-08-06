@@ -11,7 +11,8 @@ export function getDimensions(game) {
     screenCenter: screenLength / 2,
     textSize1: screenLength / 10,
     textSize2: screenLength / 15,
-    textSize3: screenLength / 18
+    textSize3: screenLength / 18,
+    textSize4: screenLength / 22
   };
 }
 
