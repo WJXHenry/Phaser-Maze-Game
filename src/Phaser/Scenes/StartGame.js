@@ -37,6 +37,7 @@ export default class StartGame extends Phaser.Scene {
       exit: 'Esc'
     });
 
+    // TODO: Change this scene to 'SOLO' game mode
     // TODO: method to initialise different game modes -> or implement the different game modes as different scenes!
     // TODO: side length is not needed -> just calculate from grid size and window length
 
@@ -57,6 +58,11 @@ export default class StartGame extends Phaser.Scene {
     this.playerPos = {
       x: 0,
       y: 0
+    };
+
+    this.endPoint = {
+      x: this.settings.gridSize - 1,
+      y: this.settings.gridSize - 1
     };
 
     this.drawMaze();
@@ -95,6 +101,14 @@ export default class StartGame extends Phaser.Scene {
       // Draw the grid unit
       this.graphics.fillRect(rectX, rectY, lengthX, lengthY);
     });
+    // Draw the end block
+    this.graphics.fillStyle(BLACK_0x);
+    this.graphics.fillRect(
+      this.endPoint.x * this.sideLength + 1,
+      this.endPoint.y * this.sideLength + 1,
+      this.sideLength - 2,
+      this.sideLength - 2
+    );
   }
 
   updateMovement(direction) {
@@ -131,6 +145,19 @@ export default class StartGame extends Phaser.Scene {
     } else {
       this.playerPos = prevPos;
     }
+    // Check if player is in the finish position, if yes, finish game
+    if (
+      this.playerPos.x === this.endPoint.x &&
+      this.playerPos.y === this.endPoint.y
+    ) {
+      this.scene.start('EndScreen', {
+        settings: this.settings,
+        results: {
+          gameMode: 0,
+          time: Math.floor((new Date().getTime() - this.timer) / 1000)
+        }
+      });
+    }
   }
 
   /**
@@ -154,13 +181,7 @@ export default class StartGame extends Phaser.Scene {
     }
 
     if (Phaser.Input.Keyboard.JustDown(this.keys.exit)) {
-      this.scene.start('EndScreen', {
-        settings: this.settings,
-        results: {
-          gameMode: 0,
-          time: Math.floor((new Date().getTime() - this.timer) / 1000)
-        }
-      });
+      this.scene.start('MainMenu', this.settings);
     }
 
     if (
