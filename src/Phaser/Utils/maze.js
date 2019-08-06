@@ -11,6 +11,10 @@ export default class Maze {
     return this.maze.getVertices();
   }
 
+  isEdge(e) {
+    return this.maze.isEdge(e);
+  }
+
   _createGrid(size) {
     let grid = new Graph();
     for (let i = 0; i < size; i++) {
@@ -41,28 +45,28 @@ export default class Maze {
     let right = `${coords[0] + 1},${coords[1]}`;
 
     paths.forEach(direction => {
-      if (direction == 'up') {
+      if (direction === 'up') {
         if (vertices.has(up) && !completed.has(up)) {
           this.maze.addEdge([vertex, up]);
           this.maze.addEdge([up, vertex]);
           completed.add(up);
           this._createMaze(up, completed, vertices);
         }
-      } else if (direction == 'down') {
+      } else if (direction === 'down') {
         if (vertices.has(down) && !completed.has(down)) {
           this.maze.addEdge([vertex, down]);
           this.maze.addEdge([down, vertex]);
           completed.add(down);
           this._createMaze(down, completed, vertices);
         }
-      } else if (direction == 'left') {
+      } else if (direction === 'left') {
         if (vertices.has(left) && !completed.has(left)) {
           this.maze.addEdge([vertex, left]);
           this.maze.addEdge([left, vertex]);
           completed.add(left);
           this._createMaze(left, completed, vertices);
         }
-      } else if (direction == 'right') {
+      } else if (direction === 'right') {
         if (vertices.has(right) && !completed.has(right)) {
           this.maze.addEdge([vertex, right]);
           this.maze.addEdge([right, vertex]);

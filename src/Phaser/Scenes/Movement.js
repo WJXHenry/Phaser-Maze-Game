@@ -72,7 +72,7 @@ export default class Movement extends Phaser.Scene {
   update() {
     this.counter++;
     if (this.counter % 1 === 0) {
-      // Clock updates every 60 seconds
+      // Clock updates every 60 (milli?)seconds
       // console.log("Tick")
       this.counter = 0; // Reset counter (just in case of overflow?)
       if (this.keys.up.isDown) {
