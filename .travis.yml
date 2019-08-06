@@ -1,3 +1,4 @@
+warnings_are_errors: false
 language: node_js
 node_js:
   - 11.7.0
@@ -5,7 +6,6 @@ branches:
   only:
     - master
     - edge
-warnings_are_errors: false
 cache:
   directories:
     - node_modules
