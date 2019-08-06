@@ -33,7 +33,8 @@ export default class StartGame extends Phaser.Scene {
       arrowLeft: 'left',
       right: 'D',
       arrowRight: 'right',
-      select: 'Space'
+      select: 'Space',
+      exit: 'Esc'
     });
 
     // TODO: method to initialise different game modes -> or implement the different game modes as different scenes!
@@ -60,6 +61,8 @@ export default class StartGame extends Phaser.Scene {
 
     this.drawMaze();
     this.drawPlayer(this.playerPos, GOLD_0x);
+
+    this.timer = new Date().getTime();
   }
 
   drawMaze() {
@@ -147,8 +150,17 @@ export default class StartGame extends Phaser.Scene {
 
   update() {
     if (Phaser.Input.Keyboard.JustDown(this.keys.select)) {
-      console.log(this.gameDimensions);
-      console.log(this.settings);
+      console.log(Math.floor((new Date().getTime() - this.timer) / 1000));
+    }
+
+    if (Phaser.Input.Keyboard.JustDown(this.keys.exit)) {
+      this.scene.start('EndScreen', {
+        settings: this.settings,
+        results: {
+          gameMode: 0,
+          time: Math.floor((new Date().getTime() - this.timer) / 1000)
+        }
+      });
     }
 
     if (
