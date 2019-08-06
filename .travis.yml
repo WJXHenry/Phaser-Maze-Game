@@ -5,6 +5,7 @@ branches:
   only:
     - master
     - edge
+warnings_are_errors: false
 cache:
   directories:
     - node_modules
@@ -24,4 +25,3 @@ deploy:
   local_dir: ./build
   on:
     branch: master
-warnings_are_errors: false
