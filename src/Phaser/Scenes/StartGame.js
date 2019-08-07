@@ -37,7 +37,7 @@ export default class StartGame extends Phaser.Scene {
       arrowRight: 'right',
       exit: 'Esc'
     });
-    gestureDetection(this.input, this.handleGesture, { swipeThreshold: 100 });
+    gestureDetection(this.input, this.handleGesture);
 
     // TODO: Change this scene to 'SOLO' game mode
     // TODO: method to initialise different game modes -> or implement the different game modes as different scenes!

@@ -29,11 +29,14 @@ export default class MainMenu extends Phaser.Scene {
       arrowDown: 'down',
       select: 'Enter'
     });
-    gestureDetection(this.input, this.handleGesture, { swipeThreshold: 100 });
+    gestureDetection(this.input, this.handleGesture);
 
     this.gameDimensions = getDimensions(this.game);
 
     this.choice = 0;
+
+    this.doubleTapTimer = 0;
+    this.doubleTapCooldown = 200; // 200 milliseconds between each tap
 
     let title = this.add.text(
       this.gameDimensions.screenCenter,
@@ -92,6 +95,11 @@ export default class MainMenu extends Phaser.Scene {
       this.updateChoice(-1);
     } else if (gesture === GESTURES.SWIPE_DOWN) {
       this.updateChoice(1);
+    } else if (gesture === GESTURES.SINGLE_TAP) {
+      if (new Date().getTime() - this.doubleTapTimer < this.doubleTapCooldown) {
+        this.scene.start(this.options[this.choice].scene, this.settings);
+      }
+      this.doubleTapTimer = new Date().getTime();
     }
   }
 

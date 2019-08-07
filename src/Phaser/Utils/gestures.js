@@ -6,9 +6,10 @@ export const GESTURES = {
   SWIPE_LEFT: 1,
   SWIPE_UP: 2,
   SWIPE_DOWN: 3,
-  DOUBLE_TAP: 4, // Not sure if this can be implemented here (maybe separately)
-  TP_SWIPE_RIGHT: 5, // TP = Two Pointer... (WIP)
-  NONE_DETECTED: 6
+  SINGLE_TAP: 4,
+  DOUBLE_TAP: 5, // Not sure if this can be implemented here (maybe separately)
+  TP_SWIPE_RIGHT: 6, // TP = Two Pointer... (WIP)
+  NONE_DETECTED: 7
 };
 
 /**
@@ -26,7 +27,7 @@ export function gestureDetection(inputManager, callback, options = {}) {
 }
 
 function detectGesture(pointer, options) {
-  let swipeThreshold = options.swipeThreshold || 0;
+  let swipeThreshold = options.swipeThreshold || 100;
   let deltaTime = (pointer.upTime - pointer.downTime) / 1000;
   let velX = (pointer.upX - pointer.downX) / deltaTime;
   let velY = (pointer.upY - pointer.downY) / deltaTime;
@@ -45,5 +46,5 @@ function detectGesture(pointer, options) {
       return GESTURES.SWIPE_DOWN;
     }
   }
-  return GESTURES.NONE_DETECTED;
+  return GESTURES.SINGLE_TAP;
 }
