@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { initSettings, getDimensions } from '../Utils/gameSettings';
 import { BLACK, GOLD, WHITE } from '../../common/colours';
+import { GESTURES, gestureDetection } from '../Utils/gestures';
 
 export default class MainMenu extends Phaser.Scene {
   constructor() {
@@ -9,6 +10,7 @@ export default class MainMenu extends Phaser.Scene {
 
   init(data) {
     this.settings = { ...initSettings(), ...data };
+    this.handleGesture = this.handleGesture.bind(this);
   }
 
   preload() {
@@ -27,6 +29,7 @@ export default class MainMenu extends Phaser.Scene {
       arrowDown: 'down',
       select: 'Enter'
     });
+    gestureDetection(this.input, this.handleGesture, { swipeThreshold: 100 });
 
     this.gameDimensions = getDimensions(this.game);
 
@@ -82,6 +85,14 @@ export default class MainMenu extends Phaser.Scene {
       { text: settings, scene: 'Settings' },
       { text: exit, scene: 'Movement' }
     ];
+  }
+
+  handleGesture(gesture) {
+    if (gesture === GESTURES.SWIPE_UP) {
+      this.updateChoice(-1);
+    } else if (gesture === GESTURES.SWIPE_DOWN) {
+      this.updateChoice(1);
+    }
   }
 
   update() {
