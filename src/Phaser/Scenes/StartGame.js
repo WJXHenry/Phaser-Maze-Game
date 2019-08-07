@@ -33,8 +33,10 @@ export default class StartGame extends Phaser.Scene {
       arrowLeft: 'left',
       right: 'D',
       arrowRight: 'right',
-      select: 'Space',
       exit: 'Esc'
+    });
+    this.input.on('pointerup', pointer => {
+      this.touchInput(pointer);
     });
 
     // TODO: Change this scene to 'SOLO' game mode
@@ -111,6 +113,24 @@ export default class StartGame extends Phaser.Scene {
     );
   }
 
+  touchInput(pointer) {
+    let deltaX = pointer.upX - pointer.downX;
+    let deltaY = pointer.upY - pointer.downY;
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      if (deltaX < 0) {
+        this.updateMovement(this.directions.LEFT);
+      } else {
+        this.updateMovement(this.directions.RIGHT);
+      }
+    } else {
+      if (deltaY < 0) {
+        this.updateMovement(this.directions.UP);
+      } else {
+        this.updateMovement(this.directions.DOWN);
+      }
+    }
+  }
+
   updateMovement(direction) {
     let prevPos = { ...this.playerPos };
     if (direction === this.directions.UP) {
@@ -176,10 +196,6 @@ export default class StartGame extends Phaser.Scene {
   }
 
   update() {
-    if (Phaser.Input.Keyboard.JustDown(this.keys.select)) {
-      console.log(Math.floor((new Date().getTime() - this.timer) / 1000));
-    }
-
     if (Phaser.Input.Keyboard.JustDown(this.keys.exit)) {
       this.scene.start('MainMenu', this.settings);
     }
