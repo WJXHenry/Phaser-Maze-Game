@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import { getDimensions } from '../Utils/gameSettings';
 import { WHITE_0x, BLACK_0x, GOLD_0x } from '../../common/colours';
 import Maze from '../Utils/maze';
+import { GESTURES, gestureDetection } from '../Utils/gestures';
 
 export default class StartGame extends Phaser.Scene {
   constructor() {
@@ -16,6 +17,7 @@ export default class StartGame extends Phaser.Scene {
       LEFT: 'left',
       RIGHT: 'right'
     };
+    this.handleGesture = this.handleGesture.bind(this);
   }
 
   preload() {
@@ -33,9 +35,9 @@ export default class StartGame extends Phaser.Scene {
       arrowLeft: 'left',
       right: 'D',
       arrowRight: 'right',
-      select: 'Space',
       exit: 'Esc'
     });
+    gestureDetection(this.input, this.handleGesture);
 
     // TODO: Change this scene to 'SOLO' game mode
     // TODO: method to initialise different game modes -> or implement the different game modes as different scenes!
@@ -111,6 +113,18 @@ export default class StartGame extends Phaser.Scene {
     );
   }
 
+  handleGesture(gesture) {
+    if (gesture === GESTURES.SWIPE_LEFT) {
+      this.updateMovement(this.directions.LEFT);
+    } else if (gesture === GESTURES.SWIPE_RIGHT) {
+      this.updateMovement(this.directions.RIGHT);
+    } else if (gesture === GESTURES.SWIPE_UP) {
+      this.updateMovement(this.directions.UP);
+    } else if (gesture === GESTURES.SWIPE_DOWN) {
+      this.updateMovement(this.directions.DOWN);
+    }
+  }
+
   updateMovement(direction) {
     let prevPos = { ...this.playerPos };
     if (direction === this.directions.UP) {
@@ -176,10 +190,6 @@ export default class StartGame extends Phaser.Scene {
   }
 
   update() {
-    if (Phaser.Input.Keyboard.JustDown(this.keys.select)) {
-      console.log(Math.floor((new Date().getTime() - this.timer) / 1000));
-    }
-
     if (Phaser.Input.Keyboard.JustDown(this.keys.exit)) {
       this.scene.start('MainMenu', this.settings);
     }

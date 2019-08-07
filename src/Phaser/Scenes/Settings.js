@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { getDimensions } from '../Utils/gameSettings';
 import { BLACK, GOLD, WHITE } from '../../common/colours';
+import { GESTURES, gestureDetection } from '../Utils/gestures';
 
 export default class Settings extends Phaser.Scene {
   constructor() {
@@ -9,6 +10,7 @@ export default class Settings extends Phaser.Scene {
 
   init(data) {
     this.settings = data;
+    this.handleGesture = this.handleGesture.bind(this);
   }
 
   preload() {
@@ -31,12 +33,16 @@ export default class Settings extends Phaser.Scene {
       arrowRight: 'right',
       select: 'Enter'
     });
+    gestureDetection(this.input, this.handleGesture);
 
     this.gameDimensions = getDimensions(this.game);
 
     this.gameModes = ['Solo', 'Two Player', 'Race', 'Chase', 'Escape'];
 
     this.choice = 0;
+
+    this.doubleTapTimer = 0;
+    this.doubleTapCooldown = 200; // 200 milliseconds between each tap
 
     let title = this.add.text(
       this.gameDimensions.screenCenter,
@@ -95,6 +101,25 @@ export default class Settings extends Phaser.Scene {
     menuReturn.setOrigin(0.5, 0.5);
 
     this.options = [gridSize, sideLength, gameMode, menuReturn];
+  }
+
+  handleGesture(gesture) {
+    if (gesture === GESTURES.SWIPE_UP) {
+      this.updateChoice(-1);
+    } else if (gesture === GESTURES.SWIPE_DOWN) {
+      this.updateChoice(1);
+    } else if (gesture === GESTURES.SWIPE_RIGHT) {
+      this.updateSelection(1);
+    } else if (gesture === GESTURES.SWIPE_LEFT) {
+      this.updateSelection(-1);
+    } else if (gesture === GESTURES.SINGLE_TAP) {
+      if (new Date().getTime() - this.doubleTapTimer < this.doubleTapCooldown) {
+        if (this.choice === 3) {
+          this.scene.start('MainMenu', this.settings);
+        }
+      }
+      this.doubleTapTimer = new Date().getTime();
+    }
   }
 
   update() {
