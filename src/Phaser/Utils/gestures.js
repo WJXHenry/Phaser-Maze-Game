@@ -22,13 +22,16 @@ export const GESTURES = {
  */
 export function gestureDetection(inputManager, callback, options = {}) {
   inputManager.on('pointerup', pointer => {
-    callback(detectGesture(pointer, options));
+    // TODO: change the detectGesture function to base it on speed of swipe (once Phaser has its new release)
+    callback(detectGestureNoTime(pointer, options));
   });
 }
 
+/**
+ * Commenting out to prevent eslint from throwing 'no-unused-vars'
 function detectGesture(pointer, options) {
   let swipeThreshold = options.swipeThreshold || 100;
-  let deltaTime = (pointer.upTime - pointer.downTime) / 1000;
+  let deltaTime = pointer.getDuration();
   let velX = (pointer.upX - pointer.downX) / deltaTime;
   let velY = (pointer.upY - pointer.downY) / deltaTime;
   let speedX = Math.abs(velX);
@@ -41,6 +44,30 @@ function detectGesture(pointer, options) {
     }
   } else if (speedY > speedX && speedY > swipeThreshold) {
     if (velY < 0) {
+      return GESTURES.SWIPE_UP;
+    } else {
+      return GESTURES.SWIPE_DOWN;
+    }
+  }
+  return GESTURES.SINGLE_TAP;
+}
+ */
+
+// Swipe gestures without using time (speed/velocity)
+function detectGestureNoTime(pointer, options) {
+  let swipeThreshold = options.swipeThreshold || 50;
+  let displacementX = pointer.upX - pointer.downX;
+  let displacementY = pointer.upY - pointer.downY;
+  let distanceX = Math.abs(displacementX);
+  let distanceY = Math.abs(displacementY);
+  if (distanceX > distanceY && distanceX > swipeThreshold) {
+    if (displacementX < 0) {
+      return GESTURES.SWIPE_LEFT;
+    } else {
+      return GESTURES.SWIPE_RIGHT;
+    }
+  } else if (distanceY > distanceX && distanceY > swipeThreshold) {
+    if (displacementY < 0) {
       return GESTURES.SWIPE_UP;
     } else {
       return GESTURES.SWIPE_DOWN;
