@@ -27,6 +27,8 @@ export function gestureDetection(inputManager, callback, options = {}) {
   });
 }
 
+/**
+ * Commenting out to prevent eslint from throwing 'no-unused-vars'
 function detectGesture(pointer, options) {
   let swipeThreshold = options.swipeThreshold || 100;
   let deltaTime = pointer.getDuration();
@@ -49,6 +51,7 @@ function detectGesture(pointer, options) {
   }
   return GESTURES.SINGLE_TAP;
 }
+ */
 
 // Swipe gestures without using time (speed/velocity)
 function detectGestureNoTime(pointer, options) {
