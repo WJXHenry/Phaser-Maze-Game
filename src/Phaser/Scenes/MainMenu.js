@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
-import { initSettings, getDimensions } from '../Utils/gameSettings';
+import { initSettings, getDimensions } from '../Game/gameSettings';
 import { BLACK, GOLD, WHITE } from '../../common/colours';
-import { GESTURES, gestureDetection } from '../Utils/gestures';
+import { GESTURES, gestureDetection } from '../Game/gestures';
 
 export default class MainMenu extends Phaser.Scene {
   constructor() {

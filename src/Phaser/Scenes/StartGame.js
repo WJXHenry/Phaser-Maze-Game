@@ -1,8 +1,8 @@
 import Phaser from 'phaser';
-import { getDimensions } from '../Utils/gameSettings';
+import { getDimensions } from '../Game/gameSettings';
 import { WHITE_0x, BLACK_0x, GOLD_0x } from '../../common/colours';
 import Maze from '../Utils/maze';
-import { GESTURES, gestureDetection } from '../Utils/gestures';
+import { GESTURES, gestureDetection } from '../Game/gestures';
 
 export default class StartGame extends Phaser.Scene {
   constructor() {

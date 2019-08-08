@@ -1,7 +1,7 @@
 import Phaser from 'phaser';
-import { getDimensions } from '../Utils/gameSettings';
+import { getDimensions } from '../Game/gameSettings';
 import { BLACK, WHITE } from '../../common/colours';
-import { GESTURES, gestureDetection } from '../Utils/gestures';
+import { GESTURES, gestureDetection } from '../Game/gestures';
 
 export default class EndScreen extends Phaser.Scene {
   constructor() {
