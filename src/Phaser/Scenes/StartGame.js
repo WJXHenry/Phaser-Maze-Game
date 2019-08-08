@@ -1,6 +1,5 @@
 import Phaser from 'phaser';
 import { WHITE_0x, BLACK_0x, GOLD_0x, GRAY_0x } from '../../common/colours';
-import Maze from '../Utils/maze';
 import GameMaze from '../Game/gameMaze';
 import { GESTURES, gestureDetection } from '../Game/gestures';
 
@@ -113,6 +112,7 @@ export default class StartGame extends Phaser.Scene {
         `${this.playerPos.x},${this.playerPos.y}`
       ])
     ) {
+      // Redraw player position
       this.maze.fillGrid(prevPos, WHITE_0x);
       this.maze.fillGrid(this.playerPos, GOLD_0x);
     } else {
