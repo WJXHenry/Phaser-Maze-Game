@@ -1,8 +1,7 @@
 import Phaser from 'phaser';
-import { getDimensions } from '../Utils/gameSettings';
-import { WHITE_0x, BLACK_0x, GOLD_0x } from '../../common/colours';
-import Maze from '../Utils/maze';
-import { GESTURES, gestureDetection } from '../Utils/gestures';
+import { WHITE_0x, BLACK_0x, GOLD_0x, GRAY_0x } from '../../common/colours';
+import GameMaze from '../Game/gameMaze';
+import { GESTURES, gestureDetection } from '../Game/gestures';
 
 export default class StartGame extends Phaser.Scene {
   constructor() {
@@ -43,19 +42,13 @@ export default class StartGame extends Phaser.Scene {
     // TODO: method to initialise different game modes -> or implement the different game modes as different scenes!
     // TODO: side length is not needed -> just calculate from grid size and window length
 
-    this.gameDimensions = getDimensions(this.game);
-
-    this.maze = new Maze(this.settings.gridSize);
-
-    // The length of the grid unit (including borders)
-    this.sideLength =
-      (this.gameDimensions.screenLength - 2) / this.settings.gridSize;
-
     // The border for the maze is 1
     this.graphics = this.add.graphics({
       x: 1,
       y: 1
     });
+
+    this.maze = new GameMaze(this.game, this.graphics, this.settings.gridSize);
 
     this.playerPos = {
       x: 0,
@@ -67,50 +60,15 @@ export default class StartGame extends Phaser.Scene {
       y: this.settings.gridSize - 1
     };
 
-    this.drawMaze();
-    this.drawPlayer(this.playerPos, GOLD_0x);
+    this.maze.drawMaze();
+
+    // Draw the endpoint
+    this.maze.fillGrid(this.endPoint, GRAY_0x);
+
+    // Draw the player
+    this.maze.fillGrid(this.playerPos, GOLD_0x);
 
     this.timer = new Date().getTime();
-  }
-
-  drawMaze() {
-    this.graphics.fillStyle(WHITE_0x);
-    this.maze.getVertices().forEach(vertex => {
-      let pos = vertex.split(',');
-      // Vertex
-      let vertX = Number(pos[0]);
-      let vertY = Number(pos[1]);
-      // Grid unit
-      let rectX = vertX * this.sideLength + 1;
-      let rectY = vertY * this.sideLength + 1;
-      let lengthX = this.sideLength - 2;
-      let lengthY = this.sideLength - 2;
-      // Update the grid unit dimensions
-      if (this.maze.isEdge([vertex, `${vertX - 1},${vertY}`])) {
-        rectX -= 1;
-        lengthX += 1;
-      }
-      if (this.maze.isEdge([vertex, `${vertX + 1},${vertY}`])) {
-        lengthX += 1;
-      }
-      if (this.maze.isEdge([vertex, `${vertX},${vertY - 1}`])) {
-        rectY -= 1;
-        lengthY += 1;
-      }
-      if (this.maze.isEdge([vertex, `${vertX},${vertY + 1}`])) {
-        lengthY += 1;
-      }
-      // Draw the grid unit
-      this.graphics.fillRect(rectX, rectY, lengthX, lengthY);
-    });
-    // Draw the end block
-    this.graphics.fillStyle(BLACK_0x);
-    this.graphics.fillRect(
-      this.endPoint.x * this.sideLength + 1,
-      this.endPoint.y * this.sideLength + 1,
-      this.sideLength - 2,
-      this.sideLength - 2
-    );
   }
 
   handleGesture(gesture) {
@@ -154,8 +112,9 @@ export default class StartGame extends Phaser.Scene {
         `${this.playerPos.x},${this.playerPos.y}`
       ])
     ) {
-      this.drawPlayer(prevPos, WHITE_0x);
-      this.drawPlayer(this.playerPos, GOLD_0x);
+      // Redraw player position
+      this.maze.fillGrid(prevPos, WHITE_0x);
+      this.maze.fillGrid(this.playerPos, GOLD_0x);
     } else {
       this.playerPos = prevPos;
     }
@@ -172,21 +131,6 @@ export default class StartGame extends Phaser.Scene {
         }
       });
     }
-  }
-
-  /**
-   * Draw the player
-   * @param {Object} position Object with fields x and y (coordinates)
-   * @param {Number} colour Hexadecimal colour
-   */
-  drawPlayer(position, colour) {
-    this.graphics.fillStyle(colour);
-    this.graphics.fillRect(
-      position.x * this.sideLength + 1,
-      position.y * this.sideLength + 1,
-      this.sideLength - 2,
-      this.sideLength - 2
-    );
   }
 
   update() {
