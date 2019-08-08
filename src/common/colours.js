@@ -3,7 +3,7 @@ const GOLD = '#f9a602';
 const WHITE = '#ffffff';
 const GRAY = '#cccccc';
 
-// '0x' notation
+// '0x' notation - hexadecimal
 const BLACK_0x = '0x000000';
 const GOLD_0x = '0xf9a602';
 const WHITE_0x = '0xffffff';

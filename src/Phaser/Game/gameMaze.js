@@ -5,10 +5,10 @@ import { WHITE_0x } from '../../common/colours';
 export default class GameMaze extends Maze {
   /**
    * Constructor
-   * @param {Phaser.Game} game The Phaser game object
-   * @param {Phaser.GameObjects.Graphics} graphics The Phaser graphics object
-   * @param {Number} size The size of the maze (size x size grid)
-   * @param {Number} colour The hexadecimal colour to fill in the maze (colour of the paths)
+   * @param {Phaser.Game} game - The Phaser game object
+   * @param {Phaser.GameObjects.Graphics} graphics - The Phaser graphics object
+   * @param {Number} size - The size of the maze (size x size grid)
+   * @param {Number} colour - The hexadecimal colour to fill in the maze (colour of the paths)
    */
   constructor(game, graphics, size, colour = WHITE_0x) {
     super(size);
@@ -57,9 +57,9 @@ export default class GameMaze extends Maze {
   /**
    * Fill the grid with colour at the specified position
    * @param {Object} position
-   * @param {Number} position.x The x coordinate of the vertex to fill
-   * @param {Number} position.y The y coordinate of the vertex to fill
-   * @param {Number} colour Hexadecimal colour of the grid
+   * @param {Number} position.x - The x coordinate of the vertex to fill
+   * @param {Number} position.y - The y coordinate of the vertex to fill
+   * @param {Number} colour - Hexadecimal colour of the grid
    */
   fillGrid(position, colour) {
     this.graphics.fillStyle(colour);

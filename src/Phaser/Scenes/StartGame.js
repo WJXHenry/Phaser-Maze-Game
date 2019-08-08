@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { WHITE_0x, BLACK_0x, GOLD_0x, GRAY_0x } from '../../common/colours';
 import GameMaze from '../Game/gameMaze';
+import Character from '../Game/character';
 import { GESTURES, gestureDetection } from '../Game/gestures';
 
 export default class StartGame extends Phaser.Scene {
@@ -54,6 +55,8 @@ export default class StartGame extends Phaser.Scene {
       x: 0,
       y: 0
     };
+
+    let char = new Character(this.graphics, this.maze, this.playerPos);
 
     this.endPoint = {
       x: this.settings.gridSize - 1,
