@@ -1,5 +1,11 @@
 /**
- * @enum {Gesture}
+ * @typedef {Object} Gesture
+ * @property {Number} SWIPE_RIGHT
+ * @property {Number} SWIPE_LEFT
+ * @property {Number} SWIPE_UP
+ * @property {Number} SWIPE_DOWN
+ * @property {Number} SINGLE_TAP
+ * @property {Number} NONE_DETECTED
  */
 export const GESTURES = {
   SWIPE_RIGHT: 0,

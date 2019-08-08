@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { WHITE_0x, BLACK_0x, GOLD_0x, GRAY_0x } from '../../common/colours';
+import { BLACK_0x, GRAY_0x } from '../../common/colours';
 import GameMaze from '../Game/gameMaze';
 import Character from '../Game/character';
 import { GESTURES, gestureDetection } from '../Game/gestures';
@@ -51,12 +51,11 @@ export default class StartGame extends Phaser.Scene {
 
     this.maze = new GameMaze(this.game, this.graphics, this.settings.gridSize);
 
-    this.playerPos = {
+    let initialPosition = {
       x: 0,
       y: 0
     };
-
-    let char = new Character(this.graphics, this.maze, this.playerPos);
+    this.character = new Character(this.maze, initialPosition);
 
     this.endPoint = {
       x: this.settings.gridSize - 1,
@@ -69,62 +68,30 @@ export default class StartGame extends Phaser.Scene {
     this.maze.fillGrid(this.endPoint, GRAY_0x);
 
     // Draw the player
-    this.maze.fillGrid(this.playerPos, GOLD_0x);
+    this.character.drawCharacter();
 
     this.timer = new Date().getTime();
   }
 
   handleGesture(gesture) {
     if (gesture === GESTURES.SWIPE_LEFT) {
-      this.updateMovement(this.directions.LEFT);
+      this.updateMovement(Character.DIRECTIONS.LEFT);
     } else if (gesture === GESTURES.SWIPE_RIGHT) {
-      this.updateMovement(this.directions.RIGHT);
+      this.updateMovement(Character.DIRECTIONS.RIGHT);
     } else if (gesture === GESTURES.SWIPE_UP) {
-      this.updateMovement(this.directions.UP);
+      this.updateMovement(Character.DIRECTIONS.UP);
     } else if (gesture === GESTURES.SWIPE_DOWN) {
-      this.updateMovement(this.directions.DOWN);
+      this.updateMovement(Character.DIRECTIONS.DOWN);
     }
   }
 
   updateMovement(direction) {
-    let prevPos = { ...this.playerPos };
-    if (direction === this.directions.UP) {
-      this.playerPos.y -= 1;
-      if (this.playerPos.y < 0) {
-        this.playerPos.y = 0;
-      }
-    } else if (direction === this.directions.DOWN) {
-      this.playerPos.y += 1;
-      if (this.playerPos.y > this.settings.gridSize - 1) {
-        this.playerPos.y = this.settings.gridSize - 1;
-      }
-    } else if (direction === this.directions.LEFT) {
-      this.playerPos.x -= 1;
-      if (this.playerPos.x < 0) {
-        this.playerPos.x = 0;
-      }
-    } else if (direction === this.directions.RIGHT) {
-      this.playerPos.x += 1;
-      if (this.playerPos.x > this.settings.gridSize - 1) {
-        this.playerPos.x = this.settings.gridSize - 1;
-      }
-    }
-    if (
-      this.maze.isEdge([
-        `${prevPos.x},${prevPos.y}`,
-        `${this.playerPos.x},${this.playerPos.y}`
-      ])
-    ) {
-      // Redraw player position
-      this.maze.fillGrid(prevPos, WHITE_0x);
-      this.maze.fillGrid(this.playerPos, GOLD_0x);
-    } else {
-      this.playerPos = prevPos;
-    }
+    // Move the character
+    this.character.moveCharacter(direction);
     // Check if player is in the finish position, if yes, finish game
     if (
-      this.playerPos.x === this.endPoint.x &&
-      this.playerPos.y === this.endPoint.y
+      this.character.position.x === this.endPoint.x &&
+      this.character.position.y === this.endPoint.y
     ) {
       this.scene.start('EndScreen', {
         settings: this.settings,
@@ -145,28 +112,28 @@ export default class StartGame extends Phaser.Scene {
       Phaser.Input.Keyboard.JustDown(this.keys.up) ||
       Phaser.Input.Keyboard.JustDown(this.keys.arrowUp)
     ) {
-      this.updateMovement(this.directions.UP);
+      this.updateMovement(Character.DIRECTIONS.UP);
     }
 
     if (
       Phaser.Input.Keyboard.JustDown(this.keys.down) ||
       Phaser.Input.Keyboard.JustDown(this.keys.arrowDown)
     ) {
-      this.updateMovement(this.directions.DOWN);
+      this.updateMovement(Character.DIRECTIONS.DOWN);
     }
 
     if (
       Phaser.Input.Keyboard.JustDown(this.keys.left) ||
       Phaser.Input.Keyboard.JustDown(this.keys.arrowLeft)
     ) {
-      this.updateMovement(this.directions.LEFT);
+      this.updateMovement(Character.DIRECTIONS.LEFT);
     }
 
     if (
       Phaser.Input.Keyboard.JustDown(this.keys.right) ||
       Phaser.Input.Keyboard.JustDown(this.keys.arrowRight)
     ) {
-      this.updateMovement(this.directions.RIGHT);
+      this.updateMovement(Character.DIRECTIONS.RIGHT);
     }
   }
 }

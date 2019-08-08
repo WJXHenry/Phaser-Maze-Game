@@ -12,6 +12,7 @@ export default class GameMaze extends Maze {
    */
   constructor(game, graphics, size, colour = WHITE_0x) {
     super(size);
+    this.size = size;
     this.game = game;
     this.graphics = graphics;
     this.gameDimensions = getDimensions(this.game);
