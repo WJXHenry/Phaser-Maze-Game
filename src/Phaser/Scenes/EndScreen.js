@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { getDimensions } from '../Utils/gameSettings';
 import { BLACK, WHITE } from '../../common/colours';
+import { GESTURES, gestureDetection } from '../Utils/gestures';
 
 export default class EndScreen extends Phaser.Scene {
   constructor() {
@@ -8,11 +9,8 @@ export default class EndScreen extends Phaser.Scene {
   }
 
   init(data) {
-    console.log(data);
     this.settings = data.settings;
     this.results = data.results;
-    console.log(this.settings);
-    console.log(this.results);
     this.gameModes = {
       SOLO: 0,
       TWO_PLAYER: 1,
@@ -20,6 +18,7 @@ export default class EndScreen extends Phaser.Scene {
       CHASE: 3,
       ESCAPE: 4
     };
+    this.handleGesture = this.handleGesture.bind(this);
   }
 
   create() {
@@ -27,6 +26,7 @@ export default class EndScreen extends Phaser.Scene {
     this.keys = this.input.keyboard.addKeys({
       continue: 'Enter'
     });
+    gestureDetection(this.input, this.handleGesture);
 
     this.gameDimensions = getDimensions(this.game);
 
@@ -73,6 +73,12 @@ export default class EndScreen extends Phaser.Scene {
       }
     );
     returnScreen.setOrigin(0.5, 0.5);
+  }
+
+  handleGesture(gesture) {
+    if (gesture === GESTURES.SINGLE_TAP) {
+      this.scene.start('MainMenu', this.settings);
+    }
   }
 
   update() {
