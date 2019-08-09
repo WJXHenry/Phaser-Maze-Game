@@ -82,6 +82,58 @@ export default class Character {
   }
 
   /**
+   * This function does not seem to work. The graphics are updated all at once.
+   * Maybe it is because the function is called during a clock tick. Not too sure how to implement smooth movement here...
+   */
+  smoothMovement(fromPos, toPos) {
+    let diffX = Math.round(toPos.x - fromPos.x);
+    let diffY = Math.round(toPos.y - fromPos.y);
+    if (diffX !== 0) {
+      for (let i = 0; i < 5; i++) {
+        // What is math (idek what I'm doing...)
+        let interFrom = {
+          ...fromPos,
+          x:
+            Math.round(
+              (fromPos.x + (1 / 5 / this.maze.sideLength) * i * diffX) * 10
+            ) / 10
+        };
+        let interTo = {
+          ...toPos,
+          x:
+            Math.round(
+              (toPos.x + (1 / 5 / this.maze.sideLength) * (i + 1) * diffX) * 10
+            ) / 10
+        };
+        this.maze.fillGrid(interFrom, this.maze.colour);
+        this.maze.fillGrid(interTo, this.colour);
+        // wait(100);
+      }
+    } else {
+      for (let i = 0; i < 5; i++) {
+        let interFrom = {
+          ...fromPos,
+          y:
+            Math.round(
+              (fromPos.y + (1 / 5 / this.maze.sideLength) * i * diffY) * 10
+            ) / 10
+        };
+        let interTo = {
+          ...toPos,
+          y:
+            Math.round(
+              (toPos.Y + (1 / 5 / this.maze.sideLength) * (i + 1) * diffY) * 10
+            ) / 10
+        };
+        this.maze.fillGrid(interFrom, this.maze.colour);
+        this.maze.fillGrid(interTo, this.colour);
+        this.maze.graphics.update();
+        // wait(100);
+      }
+    }
+  }
+
+  /**
    * Draw the character at its current position
    */
   drawCharacter() {

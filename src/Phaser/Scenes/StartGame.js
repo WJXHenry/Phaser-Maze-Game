@@ -18,6 +18,8 @@ export default class StartGame extends Phaser.Scene {
       RIGHT: 'right'
     };
     this.handleGesture = this.handleGesture.bind(this);
+    this.clock = 0;
+    this.clockCooldown = 10;
   }
 
   preload() {
@@ -104,36 +106,29 @@ export default class StartGame extends Phaser.Scene {
   }
 
   update() {
+    this.clock++;
+
     if (Phaser.Input.Keyboard.JustDown(this.keys.exit)) {
       this.scene.start('MainMenu', this.settings);
     }
 
-    if (
-      Phaser.Input.Keyboard.JustDown(this.keys.up) ||
-      Phaser.Input.Keyboard.JustDown(this.keys.arrowUp)
-    ) {
-      this.updateMovement(Character.DIRECTIONS.UP);
-    }
-
-    if (
-      Phaser.Input.Keyboard.JustDown(this.keys.down) ||
-      Phaser.Input.Keyboard.JustDown(this.keys.arrowDown)
-    ) {
-      this.updateMovement(Character.DIRECTIONS.DOWN);
-    }
-
-    if (
-      Phaser.Input.Keyboard.JustDown(this.keys.left) ||
-      Phaser.Input.Keyboard.JustDown(this.keys.arrowLeft)
-    ) {
-      this.updateMovement(Character.DIRECTIONS.LEFT);
-    }
-
-    if (
-      Phaser.Input.Keyboard.JustDown(this.keys.right) ||
-      Phaser.Input.Keyboard.JustDown(this.keys.arrowRight)
-    ) {
-      this.updateMovement(Character.DIRECTIONS.RIGHT);
+    if (this.clock > this.clockCooldown) {
+      if (this.keys.up.isDown || this.keys.arrowUp.isDown) {
+        this.updateMovement(Character.DIRECTIONS.UP);
+        this.clock = 0;
+      }
+      if (this.keys.down.isDown || this.keys.arrowDown.isDown) {
+        this.updateMovement(Character.DIRECTIONS.DOWN);
+        this.clock = 0;
+      }
+      if (this.keys.left.isDown || this.keys.arrowLeft.isDown) {
+        this.updateMovement(Character.DIRECTIONS.LEFT);
+        this.clock = 0;
+      }
+      if (this.keys.right.isDown || this.keys.arrowRight.isDown) {
+        this.updateMovement(Character.DIRECTIONS.RIGHT);
+        this.clock = 0;
+      }
     }
   }
 }
