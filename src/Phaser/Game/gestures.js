@@ -1,5 +1,11 @@
 /**
- * @enum {Gesture}
+ * @typedef {Object} Gesture
+ * @property {Number} SWIPE_RIGHT
+ * @property {Number} SWIPE_LEFT
+ * @property {Number} SWIPE_UP
+ * @property {Number} SWIPE_DOWN
+ * @property {Number} SINGLE_TAP
+ * @property {Number} NONE_DETECTED
  */
 export const GESTURES = {
   SWIPE_RIGHT: 0,
@@ -14,11 +20,11 @@ export const GESTURES = {
 
 /**
  * Register input manager for gesture detection
- * @param {Phaser.Input.InputPlugin} inputManager The input manager that handles all input related events
- * @callback callback The callback function that handles the detected gesture
- *  @param {Gesture} gesture The detected gesture
+ * @param {Phaser.Input.InputPlugin} inputManager - The input manager that handles all input related events
+ * @callback callback - The callback function that handles the detected gesture
+ *  @param {Gesture} gesture - The detected gesture
  * @param {Object} options
- * @param {Number} options.swipeThreshold The swipe threshold for the detection
+ * @param {Number} options.swipeThreshold - The swipe threshold for the detection
  */
 export function gestureDetection(inputManager, callback, options = {}) {
   inputManager.on('pointerup', pointer => {
