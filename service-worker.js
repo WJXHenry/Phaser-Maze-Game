@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/Phaser-Maze-Game/precache-manifest.359515fc6b77cbf68b7c298876be3837.js"
+  "/Phaser-Maze-Game/precache-manifest.4c1024d10ca0aa8e82d8c1a7881e387d.js"
 );
 
 self.addEventListener('message', (event) => {
