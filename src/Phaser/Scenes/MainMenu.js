@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { initSettings, getDimensions } from '../Game/gameSettings';
-import { BLACK, GOLD, WHITE } from '../../common/colours';
+import { BLACK, GOLD, GRAY, WHITE } from '../../common/colours';
 import { GESTURES, gestureDetection } from '../Game/gestures';
 
 export default class MainMenu extends Phaser.Scene {
@@ -77,7 +77,7 @@ export default class MainMenu extends Phaser.Scene {
       'Exit',
       {
         fontFamily: 'Ubuntu',
-        fill: BLACK,
+        fill: GRAY,
         fontSize: this.gameDimensions.textSize3
       }
     );
@@ -85,8 +85,8 @@ export default class MainMenu extends Phaser.Scene {
 
     this.options = [
       { text: startGame, scene: 'StartGame' },
-      { text: settings, scene: 'Settings' },
-      { text: exit, scene: 'Movement' }
+      { text: settings, scene: 'Settings' }
+      // { text: exit, scene: 'Movement' }
     ];
   }
 
