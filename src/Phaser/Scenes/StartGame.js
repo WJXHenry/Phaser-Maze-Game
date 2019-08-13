@@ -18,8 +18,8 @@ export default class StartGame extends Phaser.Scene {
       RIGHT: 'right'
     };
     this.handleGesture = this.handleGesture.bind(this);
-    this.clock = 0;
-    this.clockCooldown = 10;
+    this.actionClock = 0;
+    this.actionCooldown = 100; // Time in milliseconds
   }
 
   preload() {
@@ -57,7 +57,9 @@ export default class StartGame extends Phaser.Scene {
       x: 0,
       y: 0
     };
-    this.character = new Character(this.maze, initialPosition);
+    this.character = new Character(this.maze, initialPosition, {
+      smoothMovement: true
+    });
 
     this.endPoint = {
       x: this.settings.gridSize - 1,
@@ -106,29 +108,26 @@ export default class StartGame extends Phaser.Scene {
   }
 
   update() {
-    this.clock++;
-
     if (Phaser.Input.Keyboard.JustDown(this.keys.exit)) {
       this.scene.start('MainMenu', this.settings);
     }
 
-    if (this.clock > this.clockCooldown) {
+    if (new Date().getTime() - this.actionClock > this.actionCooldown) {
       if (this.keys.up.isDown || this.keys.arrowUp.isDown) {
         this.updateMovement(Character.DIRECTIONS.UP);
-        this.clock = 0;
-      }
-      if (this.keys.down.isDown || this.keys.arrowDown.isDown) {
+        this.actionClock = new Date().getTime();
+      } else if (this.keys.down.isDown || this.keys.arrowDown.isDown) {
         this.updateMovement(Character.DIRECTIONS.DOWN);
-        this.clock = 0;
-      }
-      if (this.keys.left.isDown || this.keys.arrowLeft.isDown) {
+        this.actionClock = new Date().getTime();
+      } else if (this.keys.left.isDown || this.keys.arrowLeft.isDown) {
         this.updateMovement(Character.DIRECTIONS.LEFT);
-        this.clock = 0;
-      }
-      if (this.keys.right.isDown || this.keys.arrowRight.isDown) {
+        this.actionClock = new Date().getTime();
+      } else if (this.keys.right.isDown || this.keys.arrowRight.isDown) {
         this.updateMovement(Character.DIRECTIONS.RIGHT);
-        this.clock = 0;
+        this.actionClock = new Date().getTime();
       }
     }
+
+    this.character.update();
   }
 }

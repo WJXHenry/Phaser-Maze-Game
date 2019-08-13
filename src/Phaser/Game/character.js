@@ -21,6 +21,11 @@ const DIRECTIONS = {
   RIGHT: 3
 };
 
+/**
+ * The default number of intermediate steps (frames) between character movement
+ */
+const DEFAULT_UPDATE_STEPS = 5;
+
 export default class Character {
   /**
    * Constructor
@@ -28,11 +33,20 @@ export default class Character {
    * @param {Object} position - The initial position of the character
    * @param {Number} position.x - The x coordinate of the character
    * @param {Number} position.y - The y coordinate of the character
+   * @param {Object} [options]
+   * @param {String} [options.colour] - The hexadecimal colour of the character (defaults to gold)
+   * @param {Number} [options.updateSteps] - The number of intermediate steps (frames) between character movement (default: 5)
+   * @param {Boolean} [options.smoothMovement] - The flag to allow for smooth movement (default: false)
    */
-  constructor(maze, position, colour = GOLD_0x) {
+  constructor(maze, position, options = {}) {
     this.maze = maze;
     this.position = position;
-    this.colour = colour;
+    this.prevPos = position;
+    this.colour = options.colour || GOLD_0x;
+    this.smoothMovement = options.smoothMovement || false;
+    this.UPDATE_STEPS = options.updateSteps || DEFAULT_UPDATE_STEPS;
+    this.updating = false;
+    this.updateStep = 0;
   }
 
   static get DIRECTIONS() {
@@ -40,103 +54,125 @@ export default class Character {
   }
 
   /**
-   * Moves the character in the specified direction if possible
-   * @param {Direction} direction - The direction to move
-   */
-  moveCharacter(direction) {
-    // return the current character position
-    let prevPos = { ...this.position };
-    if (direction === DIRECTIONS.UP) {
-      this.position.y -= 1;
-      if (this.position.y < 0) {
-        this.position.y = 0;
-      }
-    } else if (direction === DIRECTIONS.DOWN) {
-      this.position.y += 1;
-      if (this.position.y > this.maze.size - 1) {
-        this.position.y = this.maze.size - 1;
-      }
-    } else if (direction === DIRECTIONS.LEFT) {
-      this.position.x -= 1;
-      if (this.position.x < 0) {
-        this.position.x = 0;
-      }
-    } else if (direction === DIRECTIONS.RIGHT) {
-      this.position.x += 1;
-      if (this.position.x > this.maze.size - 1) {
-        this.position.x = this.maze.size - 1;
-      }
-    }
-    if (
-      this.maze.isEdge([
-        `${prevPos.x},${prevPos.y}`,
-        `${this.position.x},${this.position.y}`
-      ])
-    ) {
-      // Redraw player position
-      this.maze.fillGrid(prevPos, this.maze.colour);
-      this.maze.fillGrid(this.position, this.colour);
-    } else {
-      this.position = prevPos;
-    }
-  }
-
-  /**
-   * This function does not seem to work. The graphics are updated all at once.
-   * Maybe it is because the function is called during a clock tick. Not too sure how to implement smooth movement here...
-   */
-  smoothMovement(fromPos, toPos) {
-    let diffX = Math.round(toPos.x - fromPos.x);
-    let diffY = Math.round(toPos.y - fromPos.y);
-    if (diffX !== 0) {
-      for (let i = 0; i < 5; i++) {
-        // What is math (idek what I'm doing...)
-        let interFrom = {
-          ...fromPos,
-          x:
-            Math.round(
-              (fromPos.x + (1 / 5 / this.maze.sideLength) * i * diffX) * 10
-            ) / 10
-        };
-        let interTo = {
-          ...toPos,
-          x:
-            Math.round(
-              (toPos.x + (1 / 5 / this.maze.sideLength) * (i + 1) * diffX) * 10
-            ) / 10
-        };
-        this.maze.fillGrid(interFrom, this.maze.colour);
-        this.maze.fillGrid(interTo, this.colour);
-        // wait(100);
-      }
-    } else {
-      for (let i = 0; i < 5; i++) {
-        let interFrom = {
-          ...fromPos,
-          y:
-            Math.round(
-              (fromPos.y + (1 / 5 / this.maze.sideLength) * i * diffY) * 10
-            ) / 10
-        };
-        let interTo = {
-          ...toPos,
-          y:
-            Math.round(
-              (toPos.Y + (1 / 5 / this.maze.sideLength) * (i + 1) * diffY) * 10
-            ) / 10
-        };
-        this.maze.fillGrid(interFrom, this.maze.colour);
-        this.maze.fillGrid(interTo, this.colour);
-        this.maze.graphics.update();
-        // wait(100);
-      }
-    }
-  }
-
-  /**
    * Draw the character at its current position
    */
   drawCharacter() {
     this.maze.fillGrid(this.position, this.colour);
+  }
+
+  /**
+   * Moves the character in the specified direction if possible
+   * @param {Direction} direction - The direction to move
+   */
+  moveCharacter(direction) {
+    // If the chracter is currently updating, ignore the move command
+    if (this.updating) {
+      return;
+    }
+    // Return the current character position
+    let prevPos = { ...this.position };
+    let newPos = { ...this.position };
+    if (direction === DIRECTIONS.UP) {
+      newPos.y -= 1;
+      if (newPos.y < 0) {
+        newPos.y = 0;
+      }
+    } else if (direction === DIRECTIONS.DOWN) {
+      newPos.y += 1;
+      if (newPos.y > this.maze.size - 1) {
+        newPos.y = this.maze.size - 1;
+      }
+    } else if (direction === DIRECTIONS.LEFT) {
+      newPos.x -= 1;
+      if (newPos.x < 0) {
+        newPos.x = 0;
+      }
+    } else if (direction === DIRECTIONS.RIGHT) {
+      newPos.x += 1;
+      if (newPos.x > this.maze.size - 1) {
+        newPos.x = this.maze.size - 1;
+      }
+    }
+    if (
+      this.maze.isEdge([`${prevPos.x},${prevPos.y}`, `${newPos.x},${newPos.y}`])
+    ) {
+      // Update the positions
+      this.position = newPos;
+      this.prevPos = prevPos;
+      if (this.smoothMovement) {
+        // Set the flag to update the player movement
+        this.updating = true;
+      } else {
+        this.maze.fillGrid(this.prevPos, this.maze.colour);
+        this.maze.fillGrid(this.position, this.colour);
+      }
+    }
+  }
+
+  /**
+   * This function should always be called in the Scene's update function
+   */
+  update() {
+    if (this.updating) {
+      this._smoothMovement(this.prevPos, this.position);
+    }
+  }
+
+  /**
+   * This function is called internally to draw the intermediate steps of the character movement
+   */
+  _smoothMovement() {
+    let diffX = Math.round(this.position.x - this.prevPos.x);
+    let diffY = Math.round(this.position.y - this.prevPos.y);
+    if (diffX !== 0) {
+      // Calculating the intermediate steps...
+      let interFrom = {
+        ...this.prevPos,
+        x:
+          Math.round(
+            (this.prevPos.x +
+              (1 / this.UPDATE_STEPS) * this.updateStep * diffX) *
+              10
+          ) / 10
+      };
+      let interTo = {
+        ...this.prevPos,
+        x:
+          Math.round(
+            (this.prevPos.x +
+              (1 / this.UPDATE_STEPS) * (this.updateStep + 1) * diffX) *
+              10
+          ) / 10
+      };
+      this.maze.fillGrid(interFrom, this.maze.colour);
+      this.maze.fillGrid(interTo, this.colour);
+    } else {
+      let interFrom = {
+        ...this.prevPos,
+        y:
+          Math.round(
+            (this.prevPos.y +
+              (1 / this.UPDATE_STEPS) * this.updateStep * diffY) *
+              10
+          ) / 10
+      };
+      let interTo = {
+        ...this.prevPos,
+        y:
+          Math.round(
+            (this.prevPos.y +
+              (1 / this.UPDATE_STEPS) * (this.updateStep + 1) * diffY) *
+              10
+          ) / 10
+      };
+      this.maze.fillGrid(interFrom, this.maze.colour);
+      this.maze.fillGrid(interTo, this.colour);
+    }
+
+    this.updateStep++;
+    if (this.updateStep % this.UPDATE_STEPS === 0) {
+      this.updateStep = 0;
+      this.updating = false;
+    }
   }
 }
