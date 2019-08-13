@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import { getDimensions } from '../Game/gameSettings';
-import { BLACK, GOLD, WHITE } from '../../common/colours';
+import { BLACK, GOLD, GRAY, WHITE } from '../../common/colours';
 import { GESTURES, gestureDetection } from '../Game/gestures';
 
 export default class Settings extends Phaser.Scene {
@@ -72,7 +72,7 @@ export default class Settings extends Phaser.Scene {
       `Side length: ${this.settings.sideLength}`,
       {
         fontFamily: 'Ubuntu',
-        fill: BLACK,
+        fill: GRAY,
         fontSize: this.gameDimensions.textSize3
       }
     );
@@ -100,7 +100,7 @@ export default class Settings extends Phaser.Scene {
     );
     menuReturn.setOrigin(0.5, 0.5);
 
-    this.options = [gridSize, sideLength, gameMode, menuReturn];
+    this.options = [gridSize, gameMode, menuReturn];
   }
 
   handleGesture(gesture) {
@@ -114,7 +114,7 @@ export default class Settings extends Phaser.Scene {
       this.updateSelection(-1);
     } else if (gesture === GESTURES.SINGLE_TAP) {
       if (new Date().getTime() - this.doubleTapTimer < this.doubleTapCooldown) {
-        if (this.choice === 3) {
+        if (this.choice === 2) {
           this.scene.start('MainMenu', this.settings);
         }
       }
@@ -148,7 +148,7 @@ export default class Settings extends Phaser.Scene {
       this.updateSelection(-1);
     }
     if (Phaser.Input.Keyboard.JustDown(this.keys.select)) {
-      if (this.choice === 3) {
+      if (this.choice === 2) {
         this.scene.start('MainMenu', this.settings);
       }
     }
@@ -167,10 +167,11 @@ export default class Settings extends Phaser.Scene {
     if (this.choice === 0) {
       this.updateGridSize(direction);
     } else if (this.choice === 1) {
-      this.updateSideLength(direction);
-    } else if (this.choice === 2) {
       this.updateGameMode(direction);
     }
+    // else if (this.choice === 1) {
+    //   this.updateSideLength(direction);
+    // }
   }
 
   updateGridSize(direction) {
@@ -198,7 +199,7 @@ export default class Settings extends Phaser.Scene {
   updateGameMode(direction) {
     let newGameMode = this.settings.gameMode + direction;
     if (newGameMode > -1 && newGameMode < this.gameModes.length) {
-      this.options[2].setText(this.gameModes[newGameMode]);
+      this.options[1].setText(this.gameModes[newGameMode]);
       this.settings.gameMode = newGameMode;
     }
   }
