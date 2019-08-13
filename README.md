@@ -2,7 +2,7 @@
 
 # Phaser Maze Game
 
-![Phaser Maze Game](/Phaser_Maze_Game.png)
+[![Phaser Maze Game](/Phaser_Maze_Game.png)]((https://wjxhenry.github.io/Phaser-Maze-Game))
 
 [Click here to play!](https://wjxhenry.github.io/Phaser-Maze-Game)
 
