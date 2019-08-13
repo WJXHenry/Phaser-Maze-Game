@@ -15,6 +15,7 @@ export default class GameMaze extends Maze {
     this.size = size;
     this.game = game;
     this.graphics = graphics;
+    this.graphics.setPosition(1, 1); // The border for the maze is 1
     this.gameDimensions = getDimensions(this.game);
     this.sideLength = (this.gameDimensions.screenLength - 2) / size;
     this.colour = colour;
