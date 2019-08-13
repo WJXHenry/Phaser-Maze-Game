@@ -45,11 +45,7 @@ export default class StartGame extends Phaser.Scene {
     // TODO: method to initialise different game modes -> or implement the different game modes as different scenes!
     // TODO: side length is not needed -> just calculate from grid size and window length
 
-    // The border for the maze is 1
-    this.graphics = this.add.graphics({
-      x: 1,
-      y: 1
-    });
+    this.graphics = this.add.graphics();
 
     this.maze = new GameMaze(this.game, this.graphics, this.settings.gridSize);
 
