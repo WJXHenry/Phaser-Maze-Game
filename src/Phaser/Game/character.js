@@ -1,4 +1,4 @@
-import { GOLD_0x } from '../../common/colours';
+import { GOLD_0x } from '../Common/colours';
 
 /**
  * @typedef {Object} Position - The x and y coordinates

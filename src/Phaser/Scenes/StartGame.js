@@ -1,5 +1,5 @@
 import Phaser from 'phaser';
-import { BLACK_0x, GRAY_0x } from '../../common/colours';
+import { BLACK_0x, GRAY_0x } from '../Common/colours';
 import GameMaze from '../Game/gameMaze';
 import Character from '../Game/character';
 import { GESTURES, gestureDetection } from '../Game/gestures';

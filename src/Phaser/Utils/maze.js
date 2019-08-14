@@ -1,5 +1,5 @@
 import Graph from './graph';
-import { shuffle } from '../../common/shuffle';
+import { shuffle } from '../Common/shuffle';
 
 export default class Maze {
   constructor(size = 0) {
