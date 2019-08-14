@@ -1,6 +1,6 @@
 import Maze from '../Utils/maze';
 import { getDimensions } from './gameSettings';
-import { WHITE_0x } from '../../common/colours';
+import { WHITE_0x } from '../Common/colours';
 
 export default class GameMaze extends Maze {
   /**
