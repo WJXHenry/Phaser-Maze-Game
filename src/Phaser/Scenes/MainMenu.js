@@ -94,12 +94,12 @@ export default class MainMenu extends Phaser.Scene {
     ];
   }
 
-  handleGesture(gesture) {
-    if (gesture === GESTURES.SWIPE_UP) {
+  handleGesture(detection) {
+    if (detection.gesture === GESTURES.SWIPE_UP) {
       this.updateChoice(-1);
-    } else if (gesture === GESTURES.SWIPE_DOWN) {
+    } else if (detection.gesture === GESTURES.SWIPE_DOWN) {
       this.updateChoice(1);
-    } else if (gesture === GESTURES.SINGLE_TAP) {
+    } else if (detection.gesture === GESTURES.SINGLE_TAP) {
       if (new Date().getTime() - this.doubleTapTimer < this.doubleTapCooldown) {
         this.scene.start(this.options[this.choice].scene, this.settings);
       }

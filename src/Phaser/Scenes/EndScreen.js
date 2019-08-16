@@ -75,8 +75,8 @@ export default class EndScreen extends Phaser.Scene {
     returnScreen.setOrigin(0.5, 0.5);
   }
 
-  handleGesture(gesture) {
-    if (gesture === GESTURES.SINGLE_TAP) {
+  handleGesture(detection) {
+    if (detection.gesture === GESTURES.SINGLE_TAP) {
       this.scene.start('MainMenu', this.settings);
     }
   }

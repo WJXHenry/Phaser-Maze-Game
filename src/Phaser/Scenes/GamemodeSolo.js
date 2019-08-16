@@ -11,12 +11,6 @@ export default class GamemodeSolo extends Phaser.Scene {
 
   init(data) {
     this.settings = data;
-    this.directions = {
-      UP: 'up',
-      DOWN: 'down',
-      LEFT: 'left',
-      RIGHT: 'right'
-    };
     this.handleGesture = this.handleGesture.bind(this);
     this.actionClock = 0;
     this.actionCooldown = 100; // Time in milliseconds
@@ -69,14 +63,14 @@ export default class GamemodeSolo extends Phaser.Scene {
     this.timer = new Date().getTime();
   }
 
-  handleGesture(gesture) {
-    if (gesture === GESTURES.SWIPE_LEFT) {
+  handleGesture(detection) {
+    if (detection.gesture === GESTURES.SWIPE_LEFT) {
       this.updateMovement(Character.DIRECTIONS.LEFT);
-    } else if (gesture === GESTURES.SWIPE_RIGHT) {
+    } else if (detection.gesture === GESTURES.SWIPE_RIGHT) {
       this.updateMovement(Character.DIRECTIONS.RIGHT);
-    } else if (gesture === GESTURES.SWIPE_UP) {
+    } else if (detection.gesture === GESTURES.SWIPE_UP) {
       this.updateMovement(Character.DIRECTIONS.UP);
-    } else if (gesture === GESTURES.SWIPE_DOWN) {
+    } else if (detection.gesture === GESTURES.SWIPE_DOWN) {
       this.updateMovement(Character.DIRECTIONS.DOWN);
     }
   }

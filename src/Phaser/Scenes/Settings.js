@@ -102,16 +102,16 @@ export default class Settings extends Phaser.Scene {
     this.options = [gridSize, gameMode, menuReturn];
   }
 
-  handleGesture(gesture) {
-    if (gesture === GESTURES.SWIPE_UP) {
+  handleGesture(detection) {
+    if (detection.gesture === GESTURES.SWIPE_UP) {
       this.updateChoice(-1);
-    } else if (gesture === GESTURES.SWIPE_DOWN) {
+    } else if (detection.gesture === GESTURES.SWIPE_DOWN) {
       this.updateChoice(1);
-    } else if (gesture === GESTURES.SWIPE_RIGHT) {
+    } else if (detection.gesture === GESTURES.SWIPE_RIGHT) {
       this.updateSelection(1);
-    } else if (gesture === GESTURES.SWIPE_LEFT) {
+    } else if (detection.gesture === GESTURES.SWIPE_LEFT) {
       this.updateSelection(-1);
-    } else if (gesture === GESTURES.SINGLE_TAP) {
+    } else if (detection.gesture === GESTURES.SINGLE_TAP) {
       if (new Date().getTime() - this.doubleTapTimer < this.doubleTapCooldown) {
         if (this.choice === 2) {
           this.scene.start('MainMenu', this.settings);
