@@ -4,9 +4,9 @@ import GameMaze from '../Game/gameMaze';
 import Character from '../Game/character';
 import { GESTURES, gestureDetection } from '../Game/gestures';
 
-export default class StartGame extends Phaser.Scene {
+export default class GamemodeSolo extends Phaser.Scene {
   constructor() {
-    super('StartGame');
+    super('GamemodeSolo');
   }
 
   init(data) {
@@ -40,10 +40,6 @@ export default class StartGame extends Phaser.Scene {
       exit: 'Esc'
     });
     gestureDetection(this.input, this.handleGesture);
-
-    // TODO: Change this scene to 'SOLO' game mode
-    // TODO: method to initialise different game modes -> or implement the different game modes as different scenes!
-    // TODO: side length is not needed -> just calculate from grid size and window length
 
     this.graphics = this.add.graphics();
 
