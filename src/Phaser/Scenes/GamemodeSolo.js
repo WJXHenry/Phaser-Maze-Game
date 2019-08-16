@@ -1,8 +1,9 @@
 import Phaser from 'phaser';
-import { BLACK_0x, GRAY_0x } from '../Common/colours';
+import { BLACK_0x, GRAY_0x, BLACK } from '../Common/colours';
 import GameMaze from '../Game/gameMaze';
 import Character from '../Game/character';
 import { GESTURES, gestureDetection } from '../Game/gestures';
+import { GAMEMODES } from '../Game/gameSettings';
 
 export default class GamemodeSolo extends Phaser.Scene {
   constructor() {
@@ -83,11 +84,13 @@ export default class GamemodeSolo extends Phaser.Scene {
       this.character.position.x === this.endPoint.x &&
       this.character.position.y === this.endPoint.y
     ) {
+      let finishTime = Math.floor((new Date().getTime() - this.timer) / 1000);
       this.scene.start('EndScreen', {
         settings: this.settings,
         results: {
-          gameMode: 0,
-          time: Math.floor((new Date().getTime() - this.timer) / 1000)
+          gameMode: GAMEMODES.SOLO.id,
+          message: `Time: ${finishTime} s`,
+          messageColour: BLACK
         }
       });
     }

@@ -119,6 +119,14 @@ export default class Character {
   }
 
   /**
+   * Returns whether or not the character is updating
+   * @returns {Boolean}
+   */
+  isUpdating() {
+    return this.updating;
+  }
+
+  /**
    * This function is called internally to draw the intermediate steps of the character movement
    */
   _smoothMovement() {
