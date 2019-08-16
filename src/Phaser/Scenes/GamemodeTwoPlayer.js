@@ -113,17 +113,32 @@ export default class GamemodeTwoPlayer extends Phaser.Scene {
   }
 
   handleGesture(detection) {
-    console.log(detection);
-    console.log(Math.floor(Math.random() * 4));
-    // if (gesture === GESTURES.SWIPE_LEFT) {
-    //   this.updateMovement(Character.DIRECTIONS.LEFT);
-    // } else if (gesture === GESTURES.SWIPE_RIGHT) {
-    //   this.updateMovement(Character.DIRECTIONS.RIGHT);
-    // } else if (gesture === GESTURES.SWIPE_UP) {
-    //   this.updateMovement(Character.DIRECTIONS.UP);
-    // } else if (gesture === GESTURES.SWIPE_DOWN) {
-    //   this.updateMovement(Character.DIRECTIONS.DOWN);
-    // }
+    let screenHalfway = this.game.config.width / 2;
+    if (detection.gesture === GESTURES.SWIPE_LEFT) {
+      if (detection.origin.y > screenHalfway) {
+        this.p1UpdateMovement(Character.DIRECTIONS.LEFT);
+      } else {
+        this.p2UpdateMovement(Character.DIRECTIONS.LEFT);
+      }
+    } else if (detection.gesture === GESTURES.SWIPE_RIGHT) {
+      if (detection.origin.y > screenHalfway) {
+        this.p1UpdateMovement(Character.DIRECTIONS.RIGHT);
+      } else {
+        this.p2UpdateMovement(Character.DIRECTIONS.RIGHT);
+      }
+    } else if (detection.gesture === GESTURES.SWIPE_UP) {
+      if (detection.origin.y > screenHalfway) {
+        this.p1UpdateMovement(Character.DIRECTIONS.UP);
+      } else {
+        this.p2UpdateMovement(Character.DIRECTIONS.UP);
+      }
+    } else if (detection.gesture === GESTURES.SWIPE_DOWN) {
+      if (detection.origin.y > screenHalfway) {
+        this.p1UpdateMovement(Character.DIRECTIONS.DOWN);
+      } else {
+        this.p2UpdateMovement(Character.DIRECTIONS.DOWN);
+      }
+    }
   }
 
   p1UpdateMovement(direction) {
@@ -170,47 +185,47 @@ export default class GamemodeTwoPlayer extends Phaser.Scene {
     }
 
     if (new Date().getTime() - this.p1ActionClock > this.actionCooldown) {
-        if (this.keys.p1Up.isDown) {
-          this.p1UpdateMovement(Character.DIRECTIONS.UP);
-          this.p1ActionClock = new Date().getTime();
-        } else if (this.keys.p1Down.isDown) {
-          this.p1UpdateMovement(Character.DIRECTIONS.DOWN);
-          this.p1ActionClock = new Date().getTime();
-        } else if (this.keys.p1Left.isDown) {
-          this.p1UpdateMovement(Character.DIRECTIONS.LEFT);
-          this.p1ActionClock = new Date().getTime();
-        } else if (this.keys.p1Right.isDown) {
-          this.p1UpdateMovement(Character.DIRECTIONS.RIGHT);
-          this.p1ActionClock = new Date().getTime();
-        }
+      if (this.keys.p1Up.isDown) {
+        this.p1UpdateMovement(Character.DIRECTIONS.UP);
+        this.p1ActionClock = new Date().getTime();
+      } else if (this.keys.p1Down.isDown) {
+        this.p1UpdateMovement(Character.DIRECTIONS.DOWN);
+        this.p1ActionClock = new Date().getTime();
+      } else if (this.keys.p1Left.isDown) {
+        this.p1UpdateMovement(Character.DIRECTIONS.LEFT);
+        this.p1ActionClock = new Date().getTime();
+      } else if (this.keys.p1Right.isDown) {
+        this.p1UpdateMovement(Character.DIRECTIONS.RIGHT);
+        this.p1ActionClock = new Date().getTime();
+      }
     }
 
     if (new Date().getTime() - this.p2ActionClock > this.actionCooldown) {
-        if (this.keys.p2Up.isDown) {
-          this.p2UpdateMovement(Character.DIRECTIONS.UP);
-          this.p2ActionClock = new Date().getTime();
-        } else if (this.keys.p2Down.isDown) {
-          this.p2UpdateMovement(Character.DIRECTIONS.DOWN);
-          this.p2ActionClock = new Date().getTime();
-        } else if (this.keys.p2Left.isDown) {
-          this.p2UpdateMovement(Character.DIRECTIONS.LEFT);
-          this.p2ActionClock = new Date().getTime();
-        } else if (this.keys.p2Right.isDown) {
-          this.p2UpdateMovement(Character.DIRECTIONS.RIGHT);
-          this.p2ActionClock = new Date().getTime();
-        }
+      if (this.keys.p2Up.isDown) {
+        this.p2UpdateMovement(Character.DIRECTIONS.UP);
+        this.p2ActionClock = new Date().getTime();
+      } else if (this.keys.p2Down.isDown) {
+        this.p2UpdateMovement(Character.DIRECTIONS.DOWN);
+        this.p2ActionClock = new Date().getTime();
+      } else if (this.keys.p2Left.isDown) {
+        this.p2UpdateMovement(Character.DIRECTIONS.LEFT);
+        this.p2ActionClock = new Date().getTime();
+      } else if (this.keys.p2Right.isDown) {
+        this.p2UpdateMovement(Character.DIRECTIONS.RIGHT);
+        this.p2ActionClock = new Date().getTime();
+      }
     }
 
     this.player1.update();
     this.player2.update();
     if (!this.player1.isUpdating()) {
-        // Redraw the endpoints in case players moved over them
-        this.maze.fillGrid(this.p2EndPoint, GREEN_0x)
-        this.player1.drawCharacter();
+      // Redraw the endpoints in case players moved over them
+      this.maze.fillGrid(this.p2EndPoint, GREEN_0x);
+      this.player1.drawCharacter();
     }
     if (!this.player2.isUpdating()) {
-        this.maze.fillGrid(this.p1EndPoint, BLUE_0x);
-        this.player2.drawCharacter();
+      this.maze.fillGrid(this.p1EndPoint, BLUE_0x);
+      this.player2.drawCharacter();
     }
   }
 }
