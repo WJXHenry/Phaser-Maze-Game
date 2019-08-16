@@ -1,6 +1,7 @@
 import Phaser from 'phaser';
 import { getDimensions } from '../Game/gameSettings';
 import { BLACK, GOLD, GRAY, WHITE } from '../Common/colours';
+import { GAMEMODES, getGamemodeInfo } from '../Game/gameSettings';
 import { GESTURES, gestureDetection } from '../Game/gestures';
 
 export default class Settings extends Phaser.Scene {
@@ -36,8 +37,6 @@ export default class Settings extends Phaser.Scene {
     gestureDetection(this.input, this.handleGesture);
 
     this.gameDimensions = getDimensions(this.game);
-
-    this.gameModes = ['Solo', 'Two Player', 'Race', 'Chase', 'Escape'];
 
     this.choice = 0;
 
@@ -80,7 +79,7 @@ export default class Settings extends Phaser.Scene {
     let gameMode = this.add.text(
       this.gameDimensions.screenCenter,
       this.gameDimensions.screenSpaceUnit * 14,
-      this.gameModes[this.settings.gameMode],
+      getGamemodeInfo(this.settings.gameMode).text,
       {
         fontFamily: 'Ubuntu',
         fill: BLACK,
@@ -198,8 +197,8 @@ export default class Settings extends Phaser.Scene {
 
   updateGameMode(direction) {
     let newGameMode = this.settings.gameMode + direction;
-    if (newGameMode > -1 && newGameMode < this.gameModes.length) {
-      this.options[1].setText(this.gameModes[newGameMode]);
+    if (newGameMode > -1 && newGameMode < Object.keys(GAMEMODES).length) {
+      this.options[1].setText(getGamemodeInfo(newGameMode).text);
       this.settings.gameMode = newGameMode;
     }
   }
