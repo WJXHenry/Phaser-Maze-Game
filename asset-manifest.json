@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/Phaser-Maze-Game/static/css/main.8e66a269.chunk.css",
-    "main.js": "/Phaser-Maze-Game/static/js/main.900b58c5.chunk.js",
-    "main.js.map": "/Phaser-Maze-Game/static/js/main.900b58c5.chunk.js.map",
+    "main.js": "/Phaser-Maze-Game/static/js/main.408c2291.chunk.js",
+    "main.js.map": "/Phaser-Maze-Game/static/js/main.408c2291.chunk.js.map",
     "runtime~main.js": "/Phaser-Maze-Game/static/js/runtime~main.aeffbecf.js",
     "runtime~main.js.map": "/Phaser-Maze-Game/static/js/runtime~main.aeffbecf.js.map",
-    "static/js/2.60f352eb.chunk.js": "/Phaser-Maze-Game/static/js/2.60f352eb.chunk.js",
-    "static/js/2.60f352eb.chunk.js.map": "/Phaser-Maze-Game/static/js/2.60f352eb.chunk.js.map",
+    "static/js/2.5d947001.chunk.js": "/Phaser-Maze-Game/static/js/2.5d947001.chunk.js",
+    "static/js/2.5d947001.chunk.js.map": "/Phaser-Maze-Game/static/js/2.5d947001.chunk.js.map",
     "index.html": "/Phaser-Maze-Game/index.html",
-    "precache-manifest.e16c15e5d580f8d54d5ea7c3d28b09da.js": "/Phaser-Maze-Game/precache-manifest.e16c15e5d580f8d54d5ea7c3d28b09da.js",
+    "precache-manifest.2ebb3d6e6a29b4cdac2f41b806331191.js": "/Phaser-Maze-Game/precache-manifest.2ebb3d6e6a29b4cdac2f41b806331191.js",
     "service-worker.js": "/Phaser-Maze-Game/service-worker.js",
     "static/css/main.8e66a269.chunk.css.map": "/Phaser-Maze-Game/static/css/main.8e66a269.chunk.css.map"
   }
