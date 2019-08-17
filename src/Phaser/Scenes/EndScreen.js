@@ -11,13 +11,6 @@ export default class EndScreen extends Phaser.Scene {
   init(data) {
     this.settings = data.settings;
     this.results = data.results;
-    this.gameModes = {
-      SOLO: 0,
-      TWO_PLAYER: 1,
-      RACE: 2,
-      CHASE: 3,
-      ESCAPE: 4
-    };
     this.handleGesture = this.handleGesture.bind(this);
   }
 
@@ -46,21 +39,17 @@ export default class EndScreen extends Phaser.Scene {
     );
     gameOver.setOrigin(0.5, 0.5);
 
-    if (this.results.gameMode === this.gameModes.SOLO) {
-      let time = this.add.text(
-        this.gameDimensions.screenCenter,
-        this.gameDimensions.screenSpaceUnit * 9,
-        `Time: ${this.results.time} s`,
-        {
-          fontFamily: 'Ubuntu',
-          fill: BLACK,
-          fontSize: this.gameDimensions.textSize2
-        }
-      );
-      time.setOrigin(0.5, 0.5);
-    } else if (this.results.gameMode === this.gameModes.TWO_PLAYER) {
-      // TODO...
-    }
+    let message = this.add.text(
+      this.gameDimensions.screenCenter,
+      this.gameDimensions.screenSpaceUnit * 9,
+      this.results.message,
+      {
+        fontFamily: 'Ubuntu',
+        fill: this.results.messageColour,
+        fontSize: this.gameDimensions.textSize2
+      }
+    );
+    message.setOrigin(0.5, 0.5);
 
     let returnScreen = this.add.text(
       this.gameDimensions.screenCenter,
