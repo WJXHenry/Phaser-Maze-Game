@@ -35,7 +35,6 @@ export default class GamemodeTwoPlayer extends Phaser.Scene {
       p2Right: 'D',
       exit: 'Esc'
     });
-    this.input.addPointer(3); // Increase the number of active pointers allowed
     gestureDetection(this.input, this.handleGesture);
 
     this.graphics = this.add.graphics();

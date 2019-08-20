@@ -24,6 +24,9 @@ export default class Game extends React.Component {
           gravity: { y: 200 }
         }
       },
+      input: {
+        activePointers: 5 // Set the number of allowed active pointers
+      },
       scene: [
         MainMenu,
         Settings,
