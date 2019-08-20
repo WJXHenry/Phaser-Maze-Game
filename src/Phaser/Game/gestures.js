@@ -27,15 +27,15 @@ export const GESTURES = {
 };
 
 /**
- * Register input manager for gesture detection
- * @param {Phaser.Input.InputPlugin} inputManager - The input manager that handles all input related events
+ * Register input plugin for gesture detection
+ * @param {Phaser.Input.InputPlugin} inputPlugin - The input plugin that handles all input related events
  * @callback callback - The callback function that handles the detected gesture
  *  @param {Detection} detection - The detected gesture
  * @param {Object} [options]
  * @param {Number} [options.swipeThreshold] - The swipe threshold for the detection
  */
-export function gestureDetection(inputManager, callback, options = {}) {
-  inputManager.on('pointerup', pointer => {
+export function gestureDetection(inputPlugin, callback, options = {}) {
+  inputPlugin.on('pointerup', pointer => {
     callback(detectGesture(pointer, options));
   });
 }
