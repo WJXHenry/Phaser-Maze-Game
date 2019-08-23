@@ -1,0 +1,42 @@
+{
+  "name": "testing-phaser-game",
+  "version": "1.0.2",
+  "description": "A maze game built using the Phaser framework",
+  "main": "Game.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WJXHenry/Phaser-Maze-Game.git"
+  },
+  "keywords": [
+    "phaser",
+    "react",
+    "component",
+    "maze",
+    "game"
+  ],
+  "author": "WJXHenry",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/WJXHenry/Phaser-Maze-Game/issues"
+  },
+  "homepage": "https://github.com/WJXHenry/Phaser-Maze-Game#readme",
+  "dependencies": {
+    "phaser": "^3.19.0",
+    "react": "^16.9.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "webpack": "^4.39.2",
+    "webpack-cli": "^3.3.7"
+  },
+  "files": [
+    "/build"
+  ]
+}
