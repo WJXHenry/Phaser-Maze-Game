@@ -2,6 +2,8 @@
 
 A maze game built inside of a [React](https://reactjs.org/) component using the [Phaser Game Framework](https://phaser.io/phaser3).
 
+The source code is available on [GitHub](https://github.com/WJXHenry/Phaser-Maze-Game/tree/master/src/Phaser).
+
 ## Installation
 
 ```bash
@@ -20,5 +22,4 @@ class SomeComponent extends Component {
         );
     }
 }
-
 ```
