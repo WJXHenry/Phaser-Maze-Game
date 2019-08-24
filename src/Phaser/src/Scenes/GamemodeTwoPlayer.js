@@ -35,6 +35,7 @@ export default class GamemodeTwoPlayer extends Phaser.Scene {
       p2Right: 'D',
       exit: 'Esc'
     });
+    this.screenHalfway = this.game.config.width / 2;
     gestureDetection(this.input, this.handleGesture);
 
     this.graphics = this.add.graphics();
@@ -113,27 +114,26 @@ export default class GamemodeTwoPlayer extends Phaser.Scene {
   }
 
   handleGesture(detection) {
-    let screenHalfway = this.game.config.width / 2;
     if (detection.gesture === GESTURES.SWIPE_LEFT) {
-      if (detection.origin.y > screenHalfway) {
+      if (detection.origin.y > this.screenHalfway) {
         this.p1UpdateMovement(Character.DIRECTIONS.LEFT);
       } else {
         this.p2UpdateMovement(Character.DIRECTIONS.LEFT);
       }
     } else if (detection.gesture === GESTURES.SWIPE_RIGHT) {
-      if (detection.origin.y > screenHalfway) {
+      if (detection.origin.y > this.screenHalfway) {
         this.p1UpdateMovement(Character.DIRECTIONS.RIGHT);
       } else {
         this.p2UpdateMovement(Character.DIRECTIONS.RIGHT);
       }
     } else if (detection.gesture === GESTURES.SWIPE_UP) {
-      if (detection.origin.y > screenHalfway) {
+      if (detection.origin.y > this.screenHalfway) {
         this.p1UpdateMovement(Character.DIRECTIONS.UP);
       } else {
         this.p2UpdateMovement(Character.DIRECTIONS.UP);
       }
     } else if (detection.gesture === GESTURES.SWIPE_DOWN) {
-      if (detection.origin.y > screenHalfway) {
+      if (detection.origin.y > this.screenHalfway) {
         this.p1UpdateMovement(Character.DIRECTIONS.DOWN);
       } else {
         this.p2UpdateMovement(Character.DIRECTIONS.DOWN);
@@ -184,7 +184,9 @@ export default class GamemodeTwoPlayer extends Phaser.Scene {
       this.scene.start('MainMenu', this.settings);
     }
 
-    if (new Date().getTime() - this.p1ActionClock > this.actionCooldown) {
+    let dateNow = new Date().getTime();
+
+    if (dateNow - this.p1ActionClock > this.actionCooldown) {
       if (this.keys.p1Up.isDown) {
         this.p1UpdateMovement(Character.DIRECTIONS.UP);
         this.p1ActionClock = new Date().getTime();
@@ -200,7 +202,7 @@ export default class GamemodeTwoPlayer extends Phaser.Scene {
       }
     }
 
-    if (new Date().getTime() - this.p2ActionClock > this.actionCooldown) {
+    if (dateNow - this.p2ActionClock > this.actionCooldown) {
       if (this.keys.p2Up.isDown) {
         this.p2UpdateMovement(Character.DIRECTIONS.UP);
         this.p2ActionClock = new Date().getTime();
