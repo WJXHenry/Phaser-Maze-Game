@@ -10,14 +10,15 @@
     "react-scripts": "3.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "npm run clean-phaser && react-scripts start",
+    "build": "npm run clean-phaser && react-scripts build",
     "test": "react-scripts test",
     "prettify": "prettier \"src/**/*.js\" --write",
     "lint": "eslint \"src/**/*.js\"",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "clean-phaser": "rimraf src/Phaser/dist src/Phaser/node_modules"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -38,6 +39,7 @@
     "eslint-plugin-prettier": "^3.1.0",
     "gh-pages": "2.1.1",
     "jest-canvas-mock": "^2.1.1",
-    "prettier": "^1.18.2"
+    "prettier": "^1.18.2",
+    "rimraf": "^3.0.0"
   }
 }
