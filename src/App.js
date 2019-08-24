@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Game from './Phaser/Game';
+import Game from './Phaser/src/Game';
 import './App.css';
 
 class App extends Component {

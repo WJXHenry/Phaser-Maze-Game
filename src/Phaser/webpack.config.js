@@ -3,8 +3,8 @@ module.exports = {
   mode: 'production',
   entry: './src/Game.js',
   output: {
-    path: path.resolve(__dirname, 'build'),
-    filename: 'Game.js',
+    path: path.resolve(__dirname, './dist'),
+    filename: 'phaser-maze-game.js',
     libraryTarget: 'commonjs2'
   },
   module: {

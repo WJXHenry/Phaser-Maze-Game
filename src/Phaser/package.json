@@ -1,8 +1,8 @@
 {
-  "name": "testing-phaser-game",
-  "version": "1.0.2",
+  "name": "phaser-maze-game",
+  "version": "1.0.0",
   "description": "A maze game built using the Phaser framework",
-  "main": "Game.js",
+  "main": "dist/phaser-maze-game.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack"
@@ -37,6 +37,6 @@
     "webpack-cli": "^3.3.7"
   },
   "files": [
-    "/build"
+    "/dist"
   ]
 }
