@@ -1,7 +1,8 @@
+# Phaser Maze Game
+
 [![Build Status](https://travis-ci.org/WJXHenry/Phaser-Maze-Game.svg?branch=master)](https://travis-ci.org/WJXHenry/Phaser-Maze-Game)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=WJXHenry/Phaser-Maze-Game)](https://dependabot.com)
-
-# Phaser Maze Game
+[![Npm Status](https://img.shields.io/badge/npm-v1.1.0-informational)](https://www.npmjs.com/package/phaser-maze-game)
 
 [![Phaser Maze Game](/Phaser_Maze_Game.png)](https://wjxhenry.github.io/Phaser-Maze-Game)
 

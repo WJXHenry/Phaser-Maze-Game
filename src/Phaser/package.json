@@ -1,6 +1,6 @@
 {
   "name": "phaser-maze-game",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A maze game built using the Phaser framework",
   "main": "dist/phaser-maze-game.js",
   "scripts": {
