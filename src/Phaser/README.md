@@ -4,7 +4,7 @@ A maze game built inside of a [React](https://reactjs.org/) component using the 
 
 The source code is available on [GitHub](https://github.com/WJXHenry/Phaser-Maze-Game/tree/master/src/Phaser).
 
-### [**Click here for a demo!**](https://wjxhenry.github.io/Phaser-Maze-Game)
+[Click here for a demo!](https://wjxhenry.github.io/Phaser-Maze-Game)
 
 ## Installation
 
