@@ -4,7 +4,7 @@
   "private": true,
   "homepage": "https://wjxhenry.github.io/Phaser-Maze-Game/",
   "dependencies": {
-    "phaser": "^3.19.0",
+    "phaser": "^3.20.1",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-scripts": "3.2.0"
