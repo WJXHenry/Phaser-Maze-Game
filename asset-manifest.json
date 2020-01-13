@@ -5,17 +5,17 @@
     "main.js.map": "/Phaser-Maze-Game/static/js/main.6a8015ac.chunk.js.map",
     "runtime-main.js": "/Phaser-Maze-Game/static/js/runtime-main.27df43a1.js",
     "runtime-main.js.map": "/Phaser-Maze-Game/static/js/runtime-main.27df43a1.js.map",
-    "static/js/2.62bd8420.chunk.js": "/Phaser-Maze-Game/static/js/2.62bd8420.chunk.js",
-    "static/js/2.62bd8420.chunk.js.map": "/Phaser-Maze-Game/static/js/2.62bd8420.chunk.js.map",
+    "static/js/2.ee013584.chunk.js": "/Phaser-Maze-Game/static/js/2.ee013584.chunk.js",
+    "static/js/2.ee013584.chunk.js.map": "/Phaser-Maze-Game/static/js/2.ee013584.chunk.js.map",
     "index.html": "/Phaser-Maze-Game/index.html",
-    "precache-manifest.7cc11a9590af306496a31ba5fe7e744a.js": "/Phaser-Maze-Game/precache-manifest.7cc11a9590af306496a31ba5fe7e744a.js",
+    "precache-manifest.5e8e59e0e514986e004ca0902b16d661.js": "/Phaser-Maze-Game/precache-manifest.5e8e59e0e514986e004ca0902b16d661.js",
     "service-worker.js": "/Phaser-Maze-Game/service-worker.js",
     "static/css/main.8e66a269.chunk.css.map": "/Phaser-Maze-Game/static/css/main.8e66a269.chunk.css.map",
-    "static/js/2.62bd8420.chunk.js.LICENSE": "/Phaser-Maze-Game/static/js/2.62bd8420.chunk.js.LICENSE"
+    "static/js/2.ee013584.chunk.js.LICENSE": "/Phaser-Maze-Game/static/js/2.ee013584.chunk.js.LICENSE"
   },
   "entrypoints": [
     "static/js/runtime-main.27df43a1.js",
-    "static/js/2.62bd8420.chunk.js",
+    "static/js/2.ee013584.chunk.js",
     "static/css/main.8e66a269.chunk.css",
     "static/js/main.6a8015ac.chunk.js"
   ]
