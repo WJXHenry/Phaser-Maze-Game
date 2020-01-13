@@ -15,7 +15,10 @@ test('constructor', () => {
 
 test('getVertices', () => {
   expect.assertions(2);
-  let g = new Graph(new Set([1, 2, 3]), [[1, 2], [2, 3]]);
+  let g = new Graph(new Set([1, 2, 3]), [
+    [1, 2],
+    [2, 3]
+  ]);
   expect(g.getVertices()).toEqual(new Set(['1', '2', '3']));
   let h = new Graph();
   expect(h.getVertices()).toEqual(new Set());
@@ -23,10 +26,23 @@ test('getVertices', () => {
 
 test('getEdges', () => {
   expect.assertions(2);
-  let g = new Graph(new Set([1, 2, 3]), [[1, 2], [2, 3], [3, 1]]);
-  expect(g.getEdges().sort()).toEqual([[1, 2], [2, 3], [3, 1]]);
+  let g = new Graph(new Set([1, 2, 3]), [
+    [1, 2],
+    [2, 3],
+    [3, 1]
+  ]);
+  expect(g.getEdges().sort()).toEqual([
+    [1, 2],
+    [2, 3],
+    [3, 1]
+  ]);
   g.addEdge([2, 1]);
-  expect(g.getEdges().sort()).toEqual([[1, 2], [2, 1], [2, 3], [3, 1]]);
+  expect(g.getEdges().sort()).toEqual([
+    [1, 2],
+    [2, 1],
+    [2, 3],
+    [3, 1]
+  ]);
 });
 
 test('getEdgesString', () => {
@@ -36,7 +52,11 @@ test('getEdgesString', () => {
     ['2', '3'],
     ['3', '1']
   ]);
-  expect(g.getEdges().sort()).toEqual([['1', '2'], ['2', '3'], ['3', '1']]);
+  expect(g.getEdges().sort()).toEqual([
+    ['1', '2'],
+    ['2', '3'],
+    ['3', '1']
+  ]);
   g.addEdge(['2', '1']);
   expect(g.getEdges().sort()).toEqual([
     ['1', '2'],
@@ -88,7 +108,14 @@ test('isEdge', () => {
 
 test('neighbours', () => {
   expect.assertions(4);
-  let edges = [[1, 2], [1, 4], [3, 1], [3, 4], [2, 4], [1, 2]];
+  let edges = [
+    [1, 2],
+    [1, 4],
+    [3, 1],
+    [3, 4],
+    [2, 4],
+    [1, 2]
+  ];
   let g = new Graph(new Set([1, 2, 3, 4, 5]), edges);
   expect(g.neighbours(1)).toEqual([2, 4]);
   expect(g.neighbours(4)).toEqual([]);
@@ -98,7 +125,14 @@ test('neighbours', () => {
 
 test('isWalk', () => {
   expect.assertions(6);
-  let edges = [[1, 2], [1, 3], [2, 5], [3, 4], [4, 2], [5, 4]];
+  let edges = [
+    [1, 2],
+    [1, 3],
+    [2, 5],
+    [3, 4],
+    [4, 2],
+    [5, 4]
+  ];
   let g = new Graph(new Set([1, 2, 3, 4, 5]), edges);
   expect(Graph.isWalk(g, [3, 4, 2, 5, 4, 2])).toEqual(true);
   expect(Graph.isWalk(g, [5, 4, 2, 1, 3])).toEqual(false);
@@ -110,7 +144,14 @@ test('isWalk', () => {
 
 test('isPath', () => {
   expect.assertions(2);
-  let edges = [[1, 2], [1, 3], [2, 5], [3, 4], [4, 2], [5, 4]];
+  let edges = [
+    [1, 2],
+    [1, 3],
+    [2, 5],
+    [3, 4],
+    [4, 2],
+    [5, 4]
+  ];
   let g = new Graph(new Set([1, 2, 3, 4, 5]), edges);
   expect(Graph.isPath(g, [3, 4, 2, 5, 4, 2])).toEqual(false);
   expect(Graph.isPath(g, [3, 4, 2, 5])).toEqual(true);
