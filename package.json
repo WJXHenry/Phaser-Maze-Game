@@ -4,10 +4,10 @@
   "private": true,
   "homepage": "https://wjxhenry.github.io/Phaser-Maze-Game/",
   "dependencies": {
-    "phaser": "^3.19.0",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-scripts": "3.1.1"
+    "phaser": "^3.21.0",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
+    "react-scripts": "3.2.0"
   },
   "scripts": {
     "start": "npm run clean-phaser && react-scripts start",
@@ -36,10 +36,10 @@
     ]
   },
   "devDependencies": {
-    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "gh-pages": "2.1.1",
-    "jest-canvas-mock": "^2.1.1",
-    "prettier": "^1.18.2",
+    "jest-canvas-mock": "^2.2.0",
+    "prettier": "^1.19.1",
     "rimraf": "^3.0.0"
   }
 }
