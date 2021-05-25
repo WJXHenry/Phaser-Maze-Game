@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "eslint-plugin-prettier": "^3.1.2",
-    "gh-pages": "2.2.0",
+    "gh-pages": "3.2.0",
     "jest-canvas-mock": "^2.2.0",
     "prettier": "^1.19.1",
     "rimraf": "^3.0.0"
